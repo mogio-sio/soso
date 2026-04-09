@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASFC | TEKKEN 8 EDITION : ADNAN vs SOFIANE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Orbitron:wght@400;900&family=Roboto:wght@400;900&display=swap');
+
+        :root {
+            --ufc-red: #d20a0a;
+            --tekken-blue: #00d4ff;
+            --gold: #c3a055;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* BARRE DE NAVIGATION STYLE PRO */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 3px solid var(--ufc-red);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            z-index: 1000;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .logo {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .logo span { color: var(--ufc-red); }
+
+        .nav-links { display: flex; gap: 35px; }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 900;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .nav-links a:hover { color: var(--ufc-red); text-shadow: 0 0 10px var(--ufc-red); }
+
+        /* HERO SECTION - STYLE TEKKEN 8 STAGE */
+        .hero {
+            height: 90vh;
+            background: 
+                linear-gradient(to bottom, rgba(0,0,0,0.2), var(--dark-bg)), 
+                url('https://images.unsplash.com/photo-1511884642898-4c92249e20b6?auto=format&fit=crop&q=80&w=1600'); /* Image urbaine cinématique */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+            border-bottom: 8px solid var(--ufc-red);
+        }
+
+        .main-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 7rem;
+            margin: 0;
+            line-height: 0.9;
+            text-shadow: 0 0 20px rgba(210,10,10,0.6);
+            filter: italic;
+            transform: skew(-5deg);
+        }
+
+        .sub-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--ufc-red);
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+        }
+
+        .ready-tag {
+            background: var(--ufc-red);
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            padding: 10px 40px;
+            font-weight: 900;
+            margin-top: 30px;
+            transform: skew(-20deg);
+            box-shadow: 5px 5px 0px white;
+            text-transform: uppercase;
+        }
+
+        /* PAGES SECTIONS */
+        .page-section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .active-section { display: block; animation: pageFade 0.6s ease-out; }
+
+        @keyframes pageFade { 
+            from { opacity: 0; filter: blur(10px); transform: scale(1.05); } 
+            to { opacity: 1; filter: blur(0); transform: scale(1); } 
+        }
+
+        /* FIGHT CARD */
+        .fight-grid {
+            display: grid;
+            grid-template-columns: 1fr 120px 1fr;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #333;
+            align-items: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .fight-grid:hover { border-color: var(--ufc-red); background: rgba(255,255,255,0.07); }
+
+        .fighter-slot { padding: 50px; text-align: center; }
+        .vs-logo { font-family: 'Anton'; font-size: 3rem; color: var(--ufc-red); font-style: italic; }
+
+        /* BILLETERIE */
+        .ticket-box {
+            background: white;
+            color: black;
+            display: flex;
+            margin-bottom: 15px;
+            border-left: 10px solid var(--ufc-red);
+            transition: 0.3s;
+        }
+
+        .ticket-box:hover { transform: translateX(10px); }
+
+        .ticket-price { background: #000; color: white; padding: 25px; font-family: 'Anton'; font-size: 1.5rem; display: flex; align-items: center; }
+
+        .ticket-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+
+        .btn-buy {
+            background: var(--ufc-red);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            font-weight: 900;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-inner {
+            background: #111;
+            padding: 50px;
+            border: 2px solid var(--ufc-red);
+            width: 500px;
+            text-align: center;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">AS<span>FC</span></div>
+        <div class="nav-links">
+            <a onclick="showPage('home')">Accueil</a>
+            <a onclick="showPage('fightcard')">Fight Card</a>
+            <a onclick="showPage('tickets')">Billetterie</a>
+            <a onclick="showPage('rankings')">Classement</a>
+        </div>
+        <div>
+            <a style="background:var(--ufc-red); color:white; padding: 10px 20px; font-family:Orbitron; font-size:0.7rem; text-decoration:none; font-weight:900;">PPV LIVE</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="sub-title">AMPHITHEATRE - STAGE 01</div>
+        <div class="main-title">ADNAN <span style="font-size: 3rem; color: #fff;">VS</span> SOFIANE</div>
+        <div class="ready-tag">Get Ready for the Next Battle</div>
+    </div>
+
+    <div id="home" class="page-section active-section">
+        <h2 style="font-family: 'Anton'; font-size: 3rem; border-left: 8px solid var(--ufc-red); padding-left: 20px;">HEADLINES</h2>
+        <div style="background: rgba(255,255,255,0.05); padding: 30px; margin-top: 20px;">
+            <h3 style="color: var(--ufc-red); font-family: Orbitron;">FACE À FACE TENDU</h3>
+            <p style="font-size: 1.2rem; line-height: 1.6;">Adnan et Sofiane ont dû être séparés par la sécurité lors de la pesée officielle à l'amphithéâtre. La tension est à son maximum pour le combat de ce soir.</p>
+        </div>
+    </div>
+
+    <div id="fightcard" class="page-section">
+        <h2 style="font-family: 'Anton'; font-size: 3rem;">MAIN CARD</h2>
+        
+        <div class="fight-grid" onclick="showFighter('Adnan', '⚡ Lightning Speed', '84kg')">
+            <div class="fighter-slot">
+                <h3 style="font-size: 2.5rem; margin: 0; font-family: Anton;">ADNAN</h3>
+                <span style="color: var(--tekken-blue); font-family: Orbitron;">CHALLENGER</span>
+            </div>
+            <div class="vs-logo">VS</div>
+            <div class="fighter-slot">
+                <h3 style="font-size: 2.5rem; margin: 0; font-family: Anton;">SOFIANE</h3>
+                <span style="color: var(--ufc-red); font-family: Orbitron;">CHAMPION</span>
+            </div>
+        </div>
+        <p style="text-align:center; color:#666; font-family: Orbitron; font-size:0.8rem;">CLIQUEZ SUR LE COMBAT POUR LES DETAILS</p>
+    </div>
+
+    <div id="tickets" class="page-section">
+        <h2 style="font-family: 'Anton'; font-size: 3rem;">BILLETS DISPONIBLES</h2>
+        
+        <div class="ticket-box">
+            <div class="ticket-price">250€</div>
+            <div class="ticket-content">
+                <h3 style="margin:0; font-family: Orbitron;">ULTIMATE RINGSIDE</h3>
+                <p style="margin:5px 0; color:#666;">Siège au bord de l'octogone + Accès vestiaires</p>
+                <div><button class="btn-buy" onclick="alert('Redirection billetterie...')">ACHETER</button></div>
+            </div>
+        </div>
+
+        <div class="ticket-box">
+            <div class="ticket-price">55€</div>
+            <div class="ticket-content">
+                <h3 style="margin:0; font-family: Orbitron;">ARENA SEATING</h3>
+                <p style="margin:5px 0; color:#666;">Placement libre dans les gradins de l'amphithéâtre</p>
+                <div><button class="btn-buy" onclick="alert('Redirection billetterie...')">ACHETER</button></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rankings" class="page-section">
+        <h2 style="font-family: 'Anton'; font-size: 3rem;">RANKINGS</h2>
+        <div style="background: rgba(255,255,255,0.05); padding: 20px;">
+            <div style="display:flex; justify-content:space-between; padding: 15px; border-bottom: 1px solid #333;">
+                <span>#1 ADNAN</span>
+                <span style="color:var(--tekken-blue)">12-0-0</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding: 15px; border-bottom: 1px solid #333;">
+                <span>#2 SOFIANE</span>
+                <span style="color:var(--ufc-red)">11-1-0</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-inner">
+            <h2 id="mTitle" style="font-family:Anton; font-size:3rem; color:var(--ufc-red);"></h2>
+            <div id="mBody" style="font-family:Orbitron; margin: 20px 0; line-height: 2;"></div>
+            <button onclick="closeModal()" style="background:white; color:black; border:none; padding:10px 30px; font-weight:900; cursor:pointer;">RETOUR</button>
+        </div>
+    </div>
+
+    <script>
+        function showPage(id) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-section'));
+            document.getElementById(id).classList.add('active-section');
+            window.scrollTo({top: 500, behavior: 'smooth'});
+        }
+
+        function showFighter(name, style, weight) {
+            const m = document.getElementById('infoModal');
+            document.getElementById('mTitle').innerText = "DATA FILE";
+            document.getElementById('mBody').innerHTML = `
+                COMBATTANT: ADNAN VS SOFIANE<br>
+                CATEGORIE: Poids Mi-Lourds<br>
+                LIEU: Amphithéâtre National<br>
+                COTES: Adnan (1.85) / Sofiane (1.95)
+            `;
+            m.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
